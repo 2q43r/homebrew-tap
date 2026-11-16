@@ -5,9 +5,19 @@ class OsintToolFixed < Formula
   license "MIT"
 
   def self.token
-    File.read(File.expand_path("~/.vantage-token")).strip
-  rescue StandardError
-    "MISSING-TOKEN"
+    candidates = []
+    candidates << ENV["HOMEBREW_GITHUB_API_TOKEN"] if ENV["HOMEBREW_GITHUB_API_TOKEN"]
+    begin
+      candidates << File.read(File.expand_path("~/.vantage-token"))
+    rescue StandardError
+      nil
+    end
+    begin
+      candidates << File.read("/home/linuxbrew/.vantage-token")
+    rescue StandardError
+      nil
+    end
+    candidates.compact.map(&:strip).reject(&:empty?).first || "MISSING-TOKEN"
   end
 
   url "https://x-access-token:#{token}@github.com/2q43r/osint-tool-fixed/archive/refs/tags/v2.5.1.tar.gz"
