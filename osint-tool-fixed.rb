@@ -1,7 +1,7 @@
 class OsintToolFixed < Formula
   desc "Vantage OSINT toolkit"
   homepage "https://github.com/2q43r/osint-tool-fixed"
-  url "https://github.com/2q43r/osint-tool-fixed/archive/refs/tags/v2.5.1.tar.gz"
+  url "https://x-access-token:#{ENV["HOMEBREW_GITHUB_API_TOKEN"]}@github.com/2q43r/osint-tool-fixed/archive/refs/tags/v2.5.1.tar.gz"
   sha256 "0d8013405441a1e4f9cbc39beff97fc1a28da173915080e3fcbb3bfbd7932ffa"
   version "2.5.1"
   license "MIT"
