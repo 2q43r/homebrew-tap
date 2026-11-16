@@ -10,6 +10,12 @@ class OsintToolFixed < Formula
 
   def install
     prefix.install Dir["*"]
-    bin.write_exec_script "#{prefix}/launcher.py"
+    chmod 0755, "#{prefix}/launcher.py"
+    (bin/"vantage").write <<~EOS
+      #!/bin/bash
+      cd "#{prefix}" || exit 1
+      exec "#{Formula["python@3.15"].opt_bin}/python3.15" launcher.py "$@"
+    EOS
+    chmod 0755, bin/"vantage"
   end
 end
